@@ -1,9 +1,9 @@
-01: Criando o banco bd_games.
+-- 01: Criando o banco bd_games.
 create database bd_games
 with encoding = 'UTF8';
 
 
-02: Criando tabela usuarios.
+-- 02: Criando tabela usuarios.
 
 create table usuarios (
 	id serial primary key,
@@ -15,7 +15,7 @@ create table usuarios (
 
 select * from usuarios;
 
-03: Criando a tabela generos.
+-- 03: Criando a tabela generos.
 
 create table generos(
 	cod int not null, -- em Postgres não pode usar a clausula int(11),use ou int ou integer
@@ -25,7 +25,7 @@ create table generos(
 
 select * from generos;
 
-04: Criando a tabela produtoras.
+-- 04: Criando a tabela produtoras.
 
 create table produtoras(
 	cod int not null primary key,
@@ -35,7 +35,7 @@ create table produtoras(
 
 select * from produtoras;
 
-05: Criando tabela jogos.
+-- 05: Criando tabela jogos.
 
 create table jogos(
 	cod int not null,
@@ -56,7 +56,7 @@ select * from jogos;
 
 Inserindo dados nas tabelas
 
-01: Inserindo dados em generos.
+-- 01: Inserindo dados em generos.
 
 insert into generos(cod, genero)
 values(1, 'Ação'),
@@ -74,7 +74,7 @@ values(1, 'Ação'),
 
 select * from generos;
 
-02: Inserindo dados em produtoras.
+-- 02: Inserindo dados em produtoras.
 
 insert into produtoras(cod, produtora, pais)
 values(1, 'Microsoft', 'EUA'),
@@ -94,7 +94,7 @@ values(1, 'Microsoft', 'EUA'),
 
 select * from produtoras;
 
-03: Inserindo dados em jogos.
+-- 03: Inserindo dados em jogos.
 
 insert into jogos(cod, nome, genero, produtora, descricao, nota, capa)
 values(1, 'Mario Odissey', 2, 3, 'Em Super Mario Odyssey, o jogador joga como Mario em suas aventuras por terras além do Reino dos Cogumelos com o auxílio de um novo personagem introduzido no jogo, o Cappy. Esse \"chapéu vivo\" garante um novo acréscimo à dificuldade e a dinâmica já vista nos jogos anteriores, pois além de ser uma forma de ataque além do seu tradicional pulo, ele dá também a habilidade de \"capturar\" os carismáticos inimigos da série e alguns objetos. A nova mecânica funciona da seguinte maneira: ao chacoalhar os Joy-Cons ou apertar um simples botão, Cappy é arremessado e volta para a cabeça de Mario automaticamente, apenas se não encostar em algo que ele possa interagir. Há também vários outros simples movimentos com os Joy-Cons que fazem o chapéu rodear o cenário de maneiras diferentes, sendo útil de várias maneiras, como por exemplo a possibilidade de coletar moedas eliminar inimigos ao seu redor com mais rapidez. As mecânicas já vistas anteriormente como o \"Ground Pound\" e o \"Wall Jump\" também estão presentes no game.', '9.50', 'mario.png'),
@@ -112,11 +112,11 @@ values(1, 'Mario Odissey', 2, 3, 'Em Super Mario Odyssey, o jogador joga como Ma
 (13, 'Metroid', 1, 3, 'Metroid acompanha a caçadora de recompensas Samus Aran, em missões solitárias por planetas alienígenas hostis, enfrentando criaturas perigosas e coletando upgrades para sua armadura e armas. O jogo é famoso por sua exploração não linear, atmosfera sombria e a sensação de isolamento, inovando ao dar destaque a uma protagonista feminina forte.', 8.0, 'metroid.png'),
 (14, 'Pikmin', 1, 3, 'Em Pikmin, você controla o Capitão Olimar, um pequeno astronauta que aterrissa em um planeta estranho e recruta criaturas chamadas Pikmin para ajudá-lo a recuperar as peças de sua nave. O jogador precisa gerenciar diferentes tipos de Pikmin, cada um com habilidades únicas, para resolver quebra-cabeças, derrotar inimigos e explorar o mundo. A série é elogiada por seu design criativo, mecânicas de estratégia em tempo real e visual encantador.', 8.5, 'pikmin.png');
 
-A partir do cod 12 eu inserir na mão então não vai ter as capas
+-- A partir do cod 12 eu inserir na mão então não vai ter as capas
 
 select * from jogos;
 
-04: Inserindo dados em usuários.
+-- 04: Inserindo dados em usuários.
 
 insert into usuarios (usuario, nome, senha, tipo)
 values('admin', 'José Rocha', '$2y$10$UpMQCcir.v649HrdLvUXiOC/ftU7xWhSxm8QhX.VzSe9LZHhvW/Ty', 'admin'),
@@ -124,3 +124,11 @@ values('admin', 'José Rocha', '$2y$10$UpMQCcir.v649HrdLvUXiOC/ftU7xWhSxm8QhX.Vz
 
 
 select * from usuarios;
+
+
+-- JOIN para query no PHP
+
+select j.cod, j.nome, g.genero, p.produtora, j.descricao, j.nota, j.capa
+from jogos j
+join generos g on j.genero = g.cod
+join produtoras p on j.produtora = p.cod; 
