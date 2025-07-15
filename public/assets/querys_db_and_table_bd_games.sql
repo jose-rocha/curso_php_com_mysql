@@ -18,7 +18,7 @@ select * from usuarios;
 -- 03: Criando a tabela generos.
 
 create table generos(
-	cod int not null, -- em Postgres não pode usar a clausula int(11),use ou int ou integer
+	cod int not null, -- em Postgres não pode usar a clausula int(11), use ou int ou integer
 	genero varchar(20) not null,
 	 primary key(cod)
 );
@@ -132,3 +132,17 @@ select j.cod, j.nome, g.genero, p.produtora, j.descricao, j.nota, j.capa
 from jogos j
 join generos g on j.genero = g.cod
 join produtoras p on j.produtora = p.cod; 
+
+
+-- Média por produtora
+
+select
+  count(p.cod) qtd_cod,
+  p.cod as cod_produtora,
+  p.produtora as nome_produtora,
+  avg(j.produtora) as media_produtora
+from jogos j
+join produtoras p on j.produtora = p.cod
+group by cod_produtora, p.produtora
+order by cod_produtora desc;
+
