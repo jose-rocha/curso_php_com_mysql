@@ -23,6 +23,8 @@
 
          <table class="listagem">
              <?php 
+                echo "Quantidade de jogos encontrados: " . count($resultado);
+
                 foreach($resultado as $key => $value) {
                     // echo $value['capa'];
                     echo "
