@@ -17,12 +17,13 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="./assets//css/styles.css">
-     <title>Home</title>
+     <title>Homes</title>
  </head>
 
  <body>
      <div id="corpo">
          <h1>Escolha Seu Jogo</h1>
+
 
          <table class="listagem">
              <?php 
@@ -35,7 +36,7 @@
                     echo "
                         <tr>
                             <td>{$capa}</td>
-                            <td>{$value['nome']}</td>
+                            <td><a href='/detalhes.php?cod={$value['cod']}'>{$value['nome']}</a></td>
                             <td>Adm</td>
                         </tr>
                     ";

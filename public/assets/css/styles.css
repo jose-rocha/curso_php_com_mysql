@@ -49,3 +49,11 @@ img.capa {
   width: 50px;
   /* height: 50px; */
 }
+
+
+table.detalhe_jogo {
+  width: 100%;
+  margin-top: 10px;
+  text-align: left;
+  border-collapse: collapse;
+}
