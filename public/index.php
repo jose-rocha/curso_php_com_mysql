@@ -1,3 +1,9 @@
+<?php
+    require './includes/banco.php';
+
+    // var_dump($resultado);   
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,21 +14,22 @@
 </head>
 <body>
     <div id="corpo">
-      <h1>Escolha Seu Jogo</h1>
+        <h1>Escolha Seu Jogo</h1>
 
-      <table class="listagem">
-        <tr>
-            <td>Foto</td>
-            <td>Nome</td>
-            <td>Adm</td>
-        </tr>
-
-        <tr>
-            <td>Foto</td>
-            <td>Nome</td>
-            <td>Adm</td>
-        </tr>
-      </table>
+        <table class="listagem">        
+            <?php 
+                foreach($resultado as $key => $value) {
+                    // echo $value['capa'];
+                    echo "
+                        <tr>
+                            <td>{$value['capa']}</td>
+                            <td>{$value['nome']}</td>
+                            <td>Adm</td>
+                        </tr>
+                    ";
+                }
+            ?>
+        </table>
     </div>
 </body>
 </html>
