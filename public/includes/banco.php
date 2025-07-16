@@ -29,3 +29,11 @@ try {
     echo "Conexão falhou: " . $e->getMessage();
     die();
 }
+
+
+// Função para limpar dados e conexão e evitar vazamento de memória
+function closeConnectionDB(&$conexao, &$dados) {
+    $conexao = null;  // Fecha conexão
+    $dados = null;    // Remove dados da memória
+}
+

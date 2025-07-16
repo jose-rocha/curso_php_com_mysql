@@ -33,9 +33,13 @@
                         </tr>
                     ";
                 }
-            ?>
+             ?>
          </table>
      </div>
+     <?php 
+        closeConnectionDB($db, $resultado);
+        // var_dump($resultado);
+     ?>
  </body>
 
  </html>
