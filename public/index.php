@@ -1,23 +1,28 @@
-<?php
+ <?php
+    // O arquivo banco.php já carrega o autoload e as variáveis de ambiente
     require './includes/banco.php';
 
-    // var_dump($resultado);   
+    // As variáveis de ambiente já estão disponíveis através do banco.php
+    // var_dump($resultado); 
+    // var_dump($_ENV);
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets//css/styles.css">
-    <title>Home</title>
-</head>
-<body>
-    <div id="corpo">
-        <h1>Escolha Seu Jogo</h1>
+ <!DOCTYPE html>
+ <html lang="pt-BR">
 
-        <table class="listagem">        
-            <?php 
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./assets//css/styles.css">
+     <title>Home</title>
+ </head>
+
+ <body>
+     <div id="corpo">
+         <h1>Escolha Seu Jogo</h1>
+
+         <table class="listagem">
+             <?php 
                 foreach($resultado as $key => $value) {
                     // echo $value['capa'];
                     echo "
@@ -29,7 +34,8 @@
                     ";
                 }
             ?>
-        </table>
-    </div>
-</body>
-</html>
+         </table>
+     </div>
+ </body>
+
+ </html>
