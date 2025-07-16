@@ -36,4 +36,3 @@ function closeConnectionDB(&$conexao, &$dados) {
     $conexao = null;  // Fecha conexão
     $dados = null;    // Remove dados da memória
 }
-
