@@ -31,7 +31,7 @@
 
                 foreach($resultado as $key => $value) {
                     // echo $value['capa'];
-                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}");
+                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}", 'capa');
                     
                     echo "
                         <tr>

@@ -37,7 +37,19 @@
 
 <body>
     <div id="corpo">
-        <h1>Detalhes do Jogo</h1>
+        <div >
+            <a href="/" style="text-decoration: none;" class="d-flex align-items-center gap-2">
+                <i 
+                    class="bi bi-arrow-left-circle"
+                    style="font-size: 2rem;"
+                ></i>
+                Voltar
+            </a>                 
+        </div>
+        <h1>
+            <i class="bi bi-bookmark-check-fill"></i>
+            Detalhes do Jogo
+        </h1>
         <!-- <h1><?php echo $data[0]['nome']; ?></h1>
         <p><strong>Descrição:</strong> <?php echo $data[0]['descricao']; ?></p>
         <p><strong>Gênero:</strong> <?php echo $data[0]['genero']; ?></p> -->
@@ -48,15 +60,19 @@
         </p> -->
 
         <table class="detalhe_jogo">
-
             <?php
-                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}");
+                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}", 'img_full');
+                    $nota = number_format($data[0]['nota'], 1);
                     // var_dump($data);
+
 
                     echo "
                     <tr>
                         <td rowspan='3'>$capa</td>
-                        <td><h2>{$data[0]['nome']}</h2></td>
+                        <td>
+                            <h2>{$data[0]['nome']}</h2>
+                            <b>Nota:</b> {$nota}/10.0
+                        </td>
                     </tr>
 
                     <tr>
@@ -69,6 +85,7 @@
                 ";
                 ?>
         </table>
+
 </body>
 
 </html>

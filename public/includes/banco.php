@@ -22,7 +22,7 @@ try {
     // echo "Conexão com o banco realizada com sucesso!<br>";
     
     // Teste de consulta
-    $resultado = $db->query("select * from jogos")->fetchAll(PDO::FETCH_ASSOC);
+    $resultado = $db->query("select * from jogos order by cod asc")->fetchAll(PDO::FETCH_ASSOC);
     // echo "Número de jogos encontrados: " . count($resultado);
     
 } catch (PDOException $e) {
