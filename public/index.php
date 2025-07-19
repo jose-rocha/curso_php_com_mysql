@@ -1,6 +1,6 @@
  <?php
     // O arquivo banco.php já carrega o autoload e as variáveis de ambiente
-    require './includes/banco.php';
+    require_once './utils/connectDB.php';
     require './utils/ShowThumb.php';
 
     // echo $thumb->render('assets/images/capas_jogos/mario.png'); 

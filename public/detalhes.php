@@ -1,5 +1,5 @@
 <?php
-    require_once './includes/banco.php';
+    require_once './utils/connectDB.php';
     require_once './utils/ShowThumb.php';
     
     $cod_jogo = $_GET['cod'] ?? null;
@@ -19,7 +19,13 @@
 
         return;
     } else {
-        $data = $db->query("select * from jogos where cod = $cod_jogo")->fetchAll(PDO::FETCH_ASSOC);
+        // $data = $db->query("select * from jogos where cod = $cod_jogo")->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = $db->prepare("select * from jogos where cod = ?");
+        $stmt->execute([$cod_jogo]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // var_dump($data);
 
     }
 
@@ -61,8 +67,10 @@
 
         <table class="detalhe_jogo">
             <?php
-                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}", 'img_full');
-                    $nota = number_format($data[0]['nota'], 1);
+                    // $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}", 'img_full');
+                    // $nota = number_format($data[0]['nota'], 1);
+                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$data['capa']}", 'img_full');
+                    $nota = number_format($data['nota'], 1);
                     // var_dump($data);
 
 
@@ -70,13 +78,13 @@
                     <tr>
                         <td rowspan='3'>$capa</td>
                         <td>
-                            <h2>{$data[0]['nome']}</h2>
+                            <h2>{$data['nome']}</h2>
                             <b>Nota:</b> {$nota}/10.0
                         </td>
                     </tr>
 
                     <tr>
-                        <td>{$data[0]['descricao']}</td>
+                        <td>{$data['descricao']}</td>
                     </tr>
                     
                     <tr>
