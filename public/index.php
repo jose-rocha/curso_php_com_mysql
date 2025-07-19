@@ -36,7 +36,11 @@
                     echo "
                         <tr>
                             <td>{$capa}</td>
-                            <td><a href='/detalhes.php?cod={$value['cod']}'>{$value['nome']}</a></td>
+                            <td>
+                                <a href='/detalhes.php?cod={$value['cod']}'>{$value['nome']}</a> <br>
+                                <i class='bi bi-joystick'></i> {$value['ge_genero']} <br>
+                                <i class='bi bi-building'></i> {$value['pr_produtora']}
+                            </td>
                             <td>Adm</td>
                         </tr>
                     ";
