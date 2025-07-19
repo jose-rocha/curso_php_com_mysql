@@ -33,25 +33,19 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets//css/styles.css">
-    <title>Detalhes do Jogo</title>
-</head>
+<?php require_once './components/headLinks.php' ?>
 
 <body>
+    <?php require_once './components/header.php' ?>
+
     <div id="corpo">
-        <div >
+        <!-- <div>
             <a href="/" style="text-decoration: none;" class="d-flex align-items-center gap-2">
-                <i 
-                    class="bi bi-arrow-left-circle"
-                    style="font-size: 2rem;"
-                ></i>
+                <i class="bi bi-arrow-left-circle" style="font-size: 2rem;"></i>
                 Voltar
-            </a>                 
-        </div>
+            </a>
+        </div> -->
+
         <h1>
             <i class="bi bi-bookmark-check-fill"></i>
             Detalhes do Jogo
@@ -93,7 +87,14 @@
                 ";
                 ?>
         </table>
+    </div>
 
+    <?php 
+        require_once './components/footer.php';
+        
+        closeConnectionDB($db, $resultado);
+        // var_dump($resultado);
+    ?>
 </body>
 
 </html>
