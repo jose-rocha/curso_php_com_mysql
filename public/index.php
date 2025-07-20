@@ -8,12 +8,13 @@
     // As variáveis de ambiente já estão disponíveis através do banco.php
     // var_dump($resultado); 
     // var_dump($_ENV);
+
+    // echo $ordenacao;
 ?>
 
  <!DOCTYPE html>
  <html lang="pt-BR">
  <?php require_once './components/headLinks.php' ?>
-
 
  <body>
      <?php require_once './components/header.php' ?>
@@ -23,13 +24,30 @@
 
          <form class="d-flex row col-12 col-lg-auto mb-3 mb-lg-0" role="search">
              <div class="d-flex align-items-center col-12 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                 <span>Ordenar por: Nome | Produtora | Nota Alta | Nota Baixa | Buscar </span>
+                 <span> Ordenar por:
+                     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         href="/?ordenacao=nome">
+                         Nome
+                     </a> |
+                     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         href="/?ordenacao=produtora">
+                         Produtora
+                     </a> | <a
+                         class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         href="/?ordenacao=nota-alta">
+                         Nota Alta
+                     </a> |
+                     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         href="/?ordenacao=nota-baixa">
+                         Nota Baixa
+                     </a>
+                 </span>
              </div>
 
 
              <div class="d-flex align-items-center col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12 gap-1 p-1">
                  <div class="input-group">
-                     <input type="search" class="form-control" name="busca">
+                     <input type="search" class="form-control" name="busca" placeholder="Buscar">
 
                      <!-- <div class="input-group-text p-0" id="btnGroupAddon"> -->
                      <button type="submit" class="btn bg-primary text-white ">
@@ -50,6 +68,7 @@
                 foreach($resultado as $key => $value) {
                     // echo $value['capa'];
                     $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}", 'capa');
+                    $nota = number_format($value['nota'], 1);
                     
                     echo "
                         <tr>
@@ -58,6 +77,9 @@
                                 <a href='/detalhes.php?cod={$value['cod']}'>{$value['nome']}</a> <br>
                                 <i class='bi bi-joystick'></i> {$value['ge_genero']} <br>
                                 <i class='bi bi-building'></i> {$value['pr_produtora']}
+                                <span style='float: inline-end; margin-right: 5px;'>
+                                <i class='bi bi-star-fill' ></i> Nota: $nota/10
+                                </span> 
                             </td>
                             <td>Adm</td>
                         </tr>
