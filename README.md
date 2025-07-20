@@ -2,11 +2,11 @@
 
 A PHP Project
 
-<!-- ## Install the dependencies
+## Install the dependencies
 
 ```bash
 composer install
-``` -->
+```
 
 ### Create file .env based in .env.example
 
@@ -16,11 +16,12 @@ composer install
 php -S localhost:8001 -t public/
 ```
 
-## In Live  Server Extension
+## In Live Server Extension
 
  <img src="./public/assets/images/example_live_server.png" />
 
 ## SGBD use in this project is PostgreSQL with database bd_games.
+
 ### Scripts for create database and tables are in assets/querys_db_and_table_bd_games.sql
 
 ## Diagram Database
