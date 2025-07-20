@@ -1,12 +1,15 @@
 <?php
   $route =  $_SERVER['REQUEST_URI'];
-  $userIP = $_SERVER['REMOTE_ADDR'];
+//   $userIP = $_SERVER['REMOTE_ADDR'];
+  $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+  
   $diaAtual = date('d/m/y');
-  $anoAtual = date('Y')
+  $anoAtual = date('Y');
 //   var_dump($_SERVER['REMOTE_ADDR']);
 //   if($route === '/') {
 //     echo 'Aqui';
 //   } else 'Não';
+// var_dump($_SERVER);
 ?>
 
 <footer class="py-3 mt-4 bg-black ">
