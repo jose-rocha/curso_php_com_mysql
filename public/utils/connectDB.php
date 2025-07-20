@@ -13,6 +13,7 @@ $db_username = $_ENV['DB_USERNAME'];
 $db_password = $_ENV['DB_PASSWORD'];
 
 $ordenacao = $_GET['ordenacao'];
+$busca = $_GET['busca'];
 // var_dump($_ENV);
 
 
@@ -54,6 +55,11 @@ try {
                     join generos g on j.genero = g.cod
                     join produtoras p on j.produtora = p.cod";
 
+    if(!empty($busca)) {
+        $query .= " where (j.nome ilike '%$busca%' or g.genero ilike '%$busca%' or p.produtora ilike '%$busca%')";
+    }
+
+    // var_dump($query);
 
     switch($ordenacao) {
         case "cod":
