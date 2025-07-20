@@ -12,7 +12,7 @@ $db_name = $_ENV['DB_NAME'];
 $db_username = $_ENV['DB_USERNAME'];
 $db_password = $_ENV['DB_PASSWORD'];
 
-$ordenacao = $_GET['ordenacao'];
+$ordenacao = $_GET['ordenacao'] ?? 'nome';
 $busca = $_GET['busca'];
 // var_dump($_ENV);
 

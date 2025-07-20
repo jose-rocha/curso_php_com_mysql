@@ -11,6 +11,7 @@
 
     // echo $ordenacao;
     $busca = $_GET['busca'];
+    // echo empty($busca) ? 'vazio' : 'algo';
 ?>
 
  <!DOCTYPE html>
@@ -28,23 +29,24 @@
                  <div class="d-flex align-items-center col-12 col-lg-8 col-md-8 col-sm-12 col-xs-12">
                      <span> Ordenar por:
                          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                             href="/?ordenacao=nome&busca=<?php echo $busca;?>">
-                             <!-- Adiconado o &busca=<?php echo $busca;?> 
+                             href='<?php echo !empty($busca) ? "/?ordenacao=nome&busca={$busca}" : "/?ordenacao=nome" ?>'>
+                             <!-- Adiconado o &busca=<?php echo  $busca;?> 
                                   para quando pesquisar por algo na busca e de pois clicar em um dos links
                                   de ordenação ele fazer a ordenação certa do item pesquisado
                             -->
                              Nome
                          </a> |
                          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                             href="/?ordenacao=produtora&busca=<?php echo $busca;?>">
+                             href='<?php echo !empty($busca) ? "/?ordenacao=produtora&busca={$busca}" : "/?ordenacao=produtora" ?>
+                         '>
                              Produtora
                          </a> | <a
                              class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                             href="/?ordenacao=nota-alta&busca=<?php echo $busca;?>">
+                             href='<?php echo !empty($busca) ? "/?ordenacao=nota-alta&busca=$busca" : "/?ordenacao=nota-alta" ?>'>
                              Nota Alta
                          </a> |
                          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                             href="/?ordenacao=nota-baixa&busca=<?php echo $busca;?>">
+                             href='<?php echo !empty($busca) ? "/?ordenacao=nota-baixa&busca=$busca" : "/?ordenacao=nota-baixa"?>'>
                              Nota Baixa
                          </a> |
                          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
