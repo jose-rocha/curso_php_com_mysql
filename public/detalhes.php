@@ -1,6 +1,7 @@
 <?php
     require_once './utils/connectDB.php';
     require_once './utils/class/ShowThumb.php';
+    require_once './components/headLinks.php';
     
     $cod_jogo = $_GET['cod'] ?? null;
     $data = null;
@@ -33,10 +34,11 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?php require_once './components/headLinks.php' ?>
+<title><?= htmlspecialchars(titlePage('Detalhes do Jogo')) ?></title>
 
 <body>
     <?php require_once './components/header.php' ?>
+
 
     <div id="corpo">
         <!-- <div>

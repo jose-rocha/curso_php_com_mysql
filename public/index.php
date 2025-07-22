@@ -2,6 +2,7 @@
     // O arquivo banco.php já carrega o autoload e as variáveis de ambiente
     require_once './utils/connectDB.php';
     require './utils/class/ShowThumb.php';
+    require_once './components/headLinks.php';
 
     use public\utils\class\Notificacoes;
     
@@ -21,7 +22,7 @@
 
  <!DOCTYPE html>
  <html lang="pt-BR">
- <?php require_once './components/headLinks.php' ?>
+ <title><?= htmlspecialchars(titlePage('Home')) ?></title>
 
  <body>
      <?php require_once './components/header.php' ?>

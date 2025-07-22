@@ -99,3 +99,15 @@ table.detalhe_jogo td {
   vertical-align: top;
   /* border: 1px solid red; */
 }
+
+/* Página login */
+/* xl	≥1200px, lg	≥992px, md	≥768px, sm	≥576px  */
+
+.form-login {
+  width: if(
+    media(width >= 1200px): 25%; media(width >= 992px): 35%;
+      media(width >= 768px): 40%; media(width >= 576px): 50%; else: 80%;
+  );
+}
+
+/* Página login */

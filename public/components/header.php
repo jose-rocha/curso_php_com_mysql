@@ -27,7 +27,7 @@
                     </ul>
 
                     <div class="navbar-text" style="padding-left: 10px">
-                        <a class="nav-link link-primary text-light" aria-current="page" href="/">Login</a>
+                        <a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Login</a>
                     </div>
                 </div>
             </div>
