@@ -5,7 +5,7 @@
 <div class="px-3 mb-4 bg-black">
     <header class="
       d-flex flex-wrap 
-      justify-content-md-between py-2 mb-4 
+      justify-content-md-between
     ">
         <nav class="navbar navbar-expand-lg w-100">
             <div class="container-fluid">
