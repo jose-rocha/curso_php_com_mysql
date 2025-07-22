@@ -5,7 +5,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Joserocha\\CursoPhpComMysql\\": "public/"
+      "public\\": "public/"
     }
   },
   "authors": [

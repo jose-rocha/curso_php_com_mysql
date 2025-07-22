@@ -1,6 +1,6 @@
 <?php
     require_once './utils/connectDB.php';
-    require_once './utils/ShowThumb.php';
+    require_once './utils/class/ShowThumb.php';
     
     $cod_jogo = $_GET['cod'] ?? null;
     $data = null;

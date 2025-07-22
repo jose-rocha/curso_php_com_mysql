@@ -1,7 +1,10 @@
  <?php
     // O arquivo banco.php já carrega o autoload e as variáveis de ambiente
     require_once './utils/connectDB.php';
-    require './utils/ShowThumb.php';
+    require './utils/class/ShowThumb.php';
+
+    use public\utils\class\Notificacoes;
+    
 
     // echo $thumb->render('assets/images/capas_jogos/mario.png'); 
 
@@ -12,6 +15,8 @@
     // echo $ordenacao;
     $busca = $_GET['busca'];
     // echo empty($busca) ? 'vazio' : 'algo';
+    $notificacoes = new Notificacoes;
+    // echo $notificacoes->msg_erro();
 ?>
 
  <!DOCTYPE html>
