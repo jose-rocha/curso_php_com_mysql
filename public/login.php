@@ -1,4 +1,6 @@
 <?php
+
+    
     require_once __DIR__ . '/../vendor/autoload.php';
     require_once './components/headLinks.php';
 
@@ -8,6 +10,18 @@
     $generateHash = new GerarHash;
     // echo $generateHash->gerarHashDefault('Jose2008') . "<br><br><br><br><br><br><br>";
     // echo $generateHash->validaHash('teste', '$2y$12$AUbZ5VG/dbEB4IbCARy1wOW/FTcSOfBfhsN/t0qQak1k9/a6zMWHG');
+
+        // $_SESSION['user'] = null;
+        // $_SESSION['nome'] = null;
+        // $_SESSION['tipo'] = null;
+
+    session_start();
+
+    if(!isset($_SESSION['user'])) {
+        $_SESSION['user'] = null;
+        $_SESSION['nome'] = null;
+        $_SESSION['tipo'] = null;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,34 +30,22 @@
 <title><?= htmlspecialchars(titlePage('Login')) ?></title>
 
 <body style="height: 100dvh;" class="d-flex justify-content-center align-items-center">
-    <form class="form-login" action="/login.php" method="POST">
-        <div class="d-flex justify-content-center align-items-center">
-            <img class="mb-4" src="./assets/images/icons/logo_mobile.png" alt="logo"
-                style="width: 100px; height: 80px; object-fit: contain;">
-        </div>
-        <h1 class="h3 mb-3 fw-normal text-center">Faça seu login</h1>
+    <?php
+            $usuario = $_POST['usuario'] ?? null;
+            $senha = $_POST['senha'] ?? null;
 
-        <div class="form-floating">
-            <input type="text" class="form-control" name="usuario" placeholder="usuário">
-            <label for="floatingInput">Usuário</label>
-        </div>
+            if(is_null($usuario) || is_null($senha)) {
+                require './components/form_login.php';
 
-        <div class="form-floating my-2">
-            <input type="password" class="form-control " name="senha" placeholder="senha">
+                return;
+            }
 
-            <label for="floatingPassword">Senha</label>
-        </div>
+            echo "usuário logado.";
 
-        <button class="w-100 btn btn-lg bg-primary text-white" type="submit">Entrar</button>
+            // header("Location: /");
 
-        <div class="py-3 text-center fs-4">
-            <a class="link-offset-2link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                href='/'>
-                Voltar
-            </a>
-        </div>
-
-    </form>
+die();
+        ?>
 </body>
 
 </html>

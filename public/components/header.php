@@ -1,5 +1,8 @@
 <?php
-  $route =  $_SERVER['REQUEST_URI'];
+  $route = $_SERVER['REQUEST_URI'];
+  
+  // Verificar se sessão já foi iniciada (se não, não inicia aqui)
+  // Deixa a responsabilidade para a página principal
 ?>
 
 <div class="px-3 mb-4 bg-black">
@@ -27,7 +30,17 @@
                     </ul>
 
                     <div class="navbar-text" style="padding-left: 10px">
-                        <a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Login</a>
+                        <?php
+                            // Não chama session_start() aqui - deve ser chamado na página principal
+                            if(empty($_SESSION['user'])) {
+                                echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Login</a>';
+                            } else {
+                                // echo $_SESSION['nome'];
+                                echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Sair</a>';
+                            }
+
+                        ?>
+
                     </div>
                 </div>
             </div>
