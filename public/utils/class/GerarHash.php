@@ -4,9 +4,24 @@ namespace public\utils\class;
 
 class GerarHash
 {
+    private function criptoSenha(string $senha): string
+    {
+        $c = '';
+
+        for($pos = 0; $pos < strlen($senha); $pos++) {
+            $letra = ord($senha[$pos]) + 1; // a fn ord() mostra qual é o código da cada letra digitada
+
+            $c .= chr($letra); // a fn chr() mostra qual é o a letra de cada código
+        }
+
+        return $c;
+    }
+    
     public function gerarHashDefault(string $senha):string
     {
-        $verificaSenha = password_hash($senha, PASSWORD_DEFAULT);
+        $textoDigitadoCriptografado = $this->criptoSenha($senha);
+        // $verificaSenha = password_hash($senha, PASSWORD_DEFAULT);
+        $verificaSenha = password_hash($textoDigitadoCriptografado, PASSWORD_DEFAULT);
         
         return $verificaSenha;
     }
@@ -17,4 +32,5 @@ class GerarHash
 
         return $senhaOk;
     }
+
 }

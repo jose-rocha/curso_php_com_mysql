@@ -6,7 +6,7 @@
 
     // var_dump($_POST);
     $generateHash = new GerarHash;
-    // echo $generateHash->gerarHashDefault('teste');
+    // echo $generateHash->gerarHashDefault('Jose2008') . "<br><br><br><br><br><br><br>";
     // echo $generateHash->validaHash('teste', '$2y$12$AUbZ5VG/dbEB4IbCARy1wOW/FTcSOfBfhsN/t0qQak1k9/a6zMWHG');
 ?>
 
