@@ -1,3 +1,8 @@
+<!-- <?php 
+    session_start();
+?> -->
+
+
 <form class="form-login" action="/login.php" method="POST">
     <div class="d-flex justify-content-center align-items-center">
         <img class="mb-4" src="./assets/images/icons/logo_mobile.png" alt="logo"
@@ -6,7 +11,7 @@
     <h1 class="h3 mb-3 fw-normal text-center">Faça seu login</h1>
 
     <div class="form-floating">
-        <input type="text" class="form-control" name="usuario" size="10" maxlength="10" placeholder="usuário">
+        <input autofocus type="text" class="form-control" name="usuario" size="10" maxlength="10" placeholder="usuário">
         <label for="floatingInput">Usuário</label>
     </div>
 
@@ -15,8 +20,16 @@
 
         <label for="floatingPassword">Senha</label>
     </div>
+    <?php 
+        session_start();
+
+        echo $_SESSION['message_erro']
+            ? $notificacoes->msg_erro('Usuário ou senha inválida!')
+            : null;
+    ?>
 
     <button class="w-100 btn btn-lg bg-primary text-white" type="submit">Entrar</button>
+
 
     <div class="py-3 text-center fs-4">
         <a class="link-offset-2link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
