@@ -31,6 +31,16 @@
   background-color: var(--bg-black) !important;
 }
 
+.btn-primary {
+  background-color: var(--bg-primary) !important;
+  border-color: var(--bg-primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--bg-secondary) !important;
+}
+
 .border-light {
   border: 1px solid white;
 }

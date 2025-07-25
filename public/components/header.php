@@ -16,13 +16,14 @@
                     <img src="../assets/images/icons/logo_hibrid.png" style="width: 100%; height: 50px;" />
                 </a>
 
-                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                <!-- <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
 
-                <div class="collapse navbar-collapse " id="navbarText">
+
+                <!-- <div class="collapse navbar-collapse " id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-11 justify-content-center">
                         <?php
                           if($route !== '/') echo '<li class="nav-item"><a href="/" class="nav-link px-2 link-primary text-white">Home</a></li>';
@@ -31,19 +32,28 @@
 
                     <div class="navbar-text" style="padding-left: 10px">
                         <?php
-                            // Não chama session_start() aqui - deve ser chamado na página principal
                             echo "<span class='text-light'>" . $_SESSION['user'] . "</span>";
                             if(empty($_SESSION['user'])) {
                                 echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Login</a>';
                             } else {
-                                // echo $_SESSION['nome'];
-                                echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Sair</a>';
+                                echo '<a class="nav-link link-primary text-light" aria-current="page" href="../logout.php">Sair</a>';
                             }
 
                         ?>
 
                     </div>
-                </div>
+                </div> -->
+
+                <?php
+                    if(empty($_SESSION['user'])) {
+                        echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Fazer Login</a>';
+                    } else {
+                        // Dropdown inspirado no Quasar
+                       require_once 'dropdowHeader.php';
+                    }
+
+                ?>
+
             </div>
         </nav>
     </header>

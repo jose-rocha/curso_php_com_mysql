@@ -12,8 +12,7 @@ class Notificacoes
             </div>
         ";
         
-        return $sucesso;
-        
+        return $sucesso;        
     }    
 
     public function msg_aviso($msg = 'Atenção'): string
