@@ -1,3 +1,14 @@
+<?php
+
+use public\utils\class\VerifyAuth;
+
+session_start();
+$verifyAuth = new VerifyAuth;
+
+?>
+
+
+
 <div class="btn-group dropstart">
     <button type="button" class="btn btn-primary text-white d-flex align-items-center gap-2" data-bs-toggle="dropdown"
         aria-expanded="false">
@@ -11,7 +22,7 @@
             <!-- Coluna de Configurações -->
             <div class="col-7 p-3 border-end d-flex flex-column justify-content-center align-items-center">
                 <h6 class="text-muted mb-3">
-                    <i class="bi bi-gear me-2"></i>Settings
+                    <i class="bi bi-gear me-2"></i>Configurações
                 </h6>
 
                 <!-- <div class="form-check form-switch mb-2">
@@ -35,9 +46,15 @@
                     </label>
                 </div> -->
 
-                <a href="#" class="btn btn-outline-primary btn-sm">
-                    <i class="bi bi-person-gear me-1"></i>Profile
-                </a>
+                <ul class="list-group p-0">
+                    <li class="list-group-item d-flex justify-content-center">
+                        <a href="#" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-person-gear me-1"></i>Editar Perfil
+                        </a>
+                    </li>
+
+                    <?= $verifyAuth->verifyTypeUser($_SESSION['tipo']) ?>
+                </ul>
             </div>
 
             <!-- Coluna do Perfil -->
@@ -58,7 +75,8 @@
                                             <i class="bi bi-person-gear me-1"></i>Profile
                                         </a> -->
                         <a href="../logout.php" class="btn btn-danger btn-sm">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            <i class="bi bi-box-arrow-in-left mx-2"></i>
+                            Logout
                         </a>
                     </div>
                 </div>

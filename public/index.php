@@ -5,7 +5,7 @@
     require_once './components/headLinks.php';
 
     use public\utils\class\Notificacoes;
-    
+    use public\utils\class\VerifyAuth;
 
     // echo $thumb->render('assets/images/capas_jogos/mario.png'); 
 
@@ -18,6 +18,15 @@
     // echo empty($busca) ? 'vazio' : 'algo';
     $notificacoes = new Notificacoes;
     // echo $notificacoes->msg_erro();
+    // session_start();
+    $verifyAuth = new VerifyAuth;
+
+    // Verifica se o usuário está logado antes de verificar o tipo
+    // if ($verifyAuth->isLoged()) {
+        // echo $verifyAuth->verifyTypeUser($_SESSION['tipo']);
+    // } else {
+    //     echo "Usuário não logado";
+    // }
 ?>
 
  <!DOCTYPE html>
@@ -78,7 +87,6 @@
                  </div>
              </form>
 
-
              <table class="listagem">
                  <?php 
                     echo "Quantidade de jogos encontrados: " . count($resultado);
@@ -99,10 +107,10 @@
                                     <i class='bi bi-star-fill' ></i> Nota: $nota/10
                                     </span> 
                                 </td>
-                                <td>Adm</td>
+                                {$verifyAuth->getActionIcons($_SESSION['tipo'], $value['cod'])}                                    
                             </tr>
                         ";
-                    }
+                 }
                  ?>
              </table>
          </div>

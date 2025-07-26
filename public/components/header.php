@@ -34,7 +34,11 @@
                         <?php
                             echo "<span class='text-light'>" . $_SESSION['user'] . "</span>";
                             if(empty($_SESSION['user'])) {
-                                echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Login</a>';
+                                echo '
+                                    <a class="nav-link link-primary text-light" aria-current="page" href="../login.php">
+                                        <i class="bi bi-box-arrow-right me-1"></i>Login
+                                    </a>
+                                ';
                             } else {
                                 echo '<a class="nav-link link-primary text-light" aria-current="page" href="../logout.php">Sair</a>';
                             }
@@ -46,7 +50,12 @@
 
                 <?php
                     if(empty($_SESSION['user'])) {
-                        echo '<a class="nav-link link-primary text-light" aria-current="page" href="../login.php">Fazer Login</a>';
+                        echo '
+                            <a class="nav-link link-primary text-light" aria-current="page" href="../login.php">
+                               <span class="mx-2"> Login </span>
+                               <i class="bi bi-box-arrow-right me-1"></i>
+                            </a>
+                        ';
                     } else {
                         // Dropdown inspirado no Quasar
                        require_once 'dropdowHeader.php';

@@ -4,22 +4,28 @@
     require_once './components/headLinks.php';
     
     $cod_jogo = $_GET['cod'] ?? null;
+    $isEditando = $_POST['editando'] ?? null;
     $data = null;
+
+    // echo $isEditando;
 
     // echo !!$data === null;
 
-    if(!$cod_jogo ) {
+    // http://localhost:8001/detalhes.php?cod=11
+
+    
+    if(!$cod_jogo && !$isEditando) {
         // var_dump($cod_jogo);
         echo "
             <link rel='stylesheet' href='./assets//css/styles.css'>
             
             <div id='corpo'>
                 <h1>Código do jogo forcecido é inválido!</h1>
-            </div>"
-        ;
-
+            </div>
+        ";
+    
         return;
-    } else {
+    } elseif($cod_jogo) {
         // $data = $db->query("select * from jogos where cod = $cod_jogo")->fetchAll(PDO::FETCH_ASSOC);
 
         $stmt = $db->prepare("select * from jogos where cod = ?");
@@ -27,9 +33,17 @@
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // var_dump($data);
+    } else {
+        // $data = $db->query("select * from jogos where cod = $cod_jogo")->fetchAll(PDO::FETCH_ASSOC);
 
+        $stmt = $db->prepare("select * from jogos where cod = ?");
+        $stmt->execute([$isEditando]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // var_dump($data);
     }
 
+    $idJogo = $_POST['editando'];
 ?>
 
 <!DOCTYPE html>
@@ -41,12 +55,12 @@
 
 
     <div id="corpo">
-        <!-- <div>
-            <a href="/" style="text-decoration: none;" class="d-flex align-items-center gap-2">
+        <div>
+            <a href="/" style="text-decoration: none; max-width: 100px;" class="d-flex align-items-center gap-2 mb-3">
                 <i class="bi bi-arrow-left-circle" style="font-size: 2rem;"></i>
                 Voltar
             </a>
-        </div> -->
+        </div>
 
         <h1>
             <i class="bi bi-bookmark-check-fill"></i>
@@ -63,19 +77,26 @@
 
         <table class="detalhe_jogo">
             <?php
-                    // $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}", 'img_full');
-                    // $nota = number_format($data[0]['nota'], 1);
-                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$data['capa']}", 'img_full');
-                    $nota = number_format($data['nota'], 1);
-                    // var_dump($data);
+                // $capa = $thumb->renderImg("assets/images/capas_jogos/{$data[0]['capa']}", 'img_full');
+                // $nota = number_format($data[0]['nota'], 1);
+                $capa = $thumb->renderImg("assets/images/capas_jogos/{$data['capa']}", 'img_full');
+                $nota = number_format($data['nota'], 1);
+                // var_dump($data);
+                $editGame = isset($_POST['editando'])
+                    ? '
+                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    '
+                    : null;
 
-
-                    echo "
+                echo "
                     <tr>
                         <td rowspan='3'>$capa</td>
                         <td>
                             <h2>{$data['nome']}</h2>
                             <b>Nota:</b> {$nota}/10.0
+                            {$editGame}                             
                         </td>
                     </tr>
 
@@ -87,7 +108,7 @@
                         <td>Adm</td>
                     </tr>
                 ";
-                ?>
+            ?>
         </table>
     </div>
 
