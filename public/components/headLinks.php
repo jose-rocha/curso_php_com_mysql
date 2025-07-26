@@ -1,5 +1,4 @@
 <?php
-
 function titlePage($title = 'Site') {
     return $title;
 }

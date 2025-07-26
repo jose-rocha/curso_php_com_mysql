@@ -5,6 +5,9 @@
     use public\utils\class\Notificacoes;
     use public\utils\class\GerarHash; 
     use public\utils\class\ConnectDB;
+    use public\utils\class\VerifyAuth;
+
+   
 
     // var_dump($_POST);
     $generateHash = new GerarHash;
@@ -25,10 +28,16 @@
         $_SESSION['message_erro'] = false;
     }
 
+    $verifyAuth = new VerifyAuth;
     $notificacoes = new Notificacoes;
     $gerarHash = new GerarHash;
     $connDB = new ConnectDB;
     $db = $connDB->getConnectDB();
+
+
+    if($verifyAuth->isLoged()) {
+        header('Location: /');
+    }
 ?>
 
 <!DOCTYPE html>

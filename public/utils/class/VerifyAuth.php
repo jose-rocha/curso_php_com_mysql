@@ -9,6 +9,16 @@ class VerifyAuth
         return empty($_SESSION['user']) ? false : true;
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->isLoged() && ($_SESSION['tipo'] ?? null) === 'admin';
+    }
+
+    public function isEditor(): bool
+    {
+        return $this->isLoged() && ($_SESSION['tipo'] ?? null) === 'editor';
+    }
+
     public function verifyTypeUser(?string $typeUser): bool | string | null
     {
         // Verifica se o usuário está logado primeiro
@@ -20,7 +30,7 @@ class VerifyAuth
             case 'admin':
                 return '
                 <li class="list-group-item px-0 d-flex justify-content-center">
-                    <a href="#" class="btn btn-outline-primary btn-sm">
+                    <a href="/user-new.php" class="btn btn-outline-primary btn-sm">
                         <i class="bi bi-person-gear me-1"></i>Novo Usuário
                     </a>
                  </li>
