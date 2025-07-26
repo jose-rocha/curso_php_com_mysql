@@ -31,7 +31,7 @@ if (!$verifyAuth->isAdmin()) {
     <?php 
         require_once './components/footer.php';
 
-        closeConnectionDB($db, $resultado);
+        // closeConnectionDB($db, $resultado);
         // var_dump($resultado);
      ?>
 </body>
