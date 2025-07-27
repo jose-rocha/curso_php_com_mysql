@@ -10,5 +10,5 @@
     
     // sleep(3);
     
-    header("Location: /");
+    header("Location: /login.php");
 ?>

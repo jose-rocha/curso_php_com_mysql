@@ -34,7 +34,7 @@
     <div class="py-3 text-center fs-4">
         <a class="link-offset-2link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
             href='/'>
-            Voltar
+            Ir para Home
         </a>
     </div>
 </form>

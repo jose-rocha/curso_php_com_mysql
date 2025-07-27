@@ -26,11 +26,25 @@ class GerarHash
         return $verificaSenha;
     }
 
-    public function validaHash(string $senha, string $hash): string
+    public function validaHash(string $senha, string $hash): bool
     {
-        $senhaOk = password_verify($senha, $hash);
-
-        return $senhaOk;
+        /* 
+            Tenta primeiro com a senha original (usuários antigos).
+            Tive que usar essa por que quando eu crio usuarios pelo formulário
+            não funcionava o login por isso usei $senhaOkAntigo
+        */
+        $senhaOkAntigo = password_verify($senha, $hash);
+        
+        if ($senhaOkAntigo) {
+            return true;
+        }
+        
+        // Se não funcionou, tenta com criptoSenha (usuários novos)
+        $senhaComCripto = $this->criptoSenha($senha);
+        $senhaOkNovo = password_verify($senhaComCripto, $hash);
+        
+        return $senhaOkNovo;
     }
+
 
 }

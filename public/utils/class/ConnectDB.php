@@ -29,4 +29,50 @@ class ConnectDB
             // return [$this->db_host, $db_name, $db_username, $db_password];
             return $db;
     }
+
+
+    //  public function insertInDB($queryParams)
+    // {
+    //    $db = $this->getConnectDB();
+       
+    //    // Executa a query e levanta exceção em caso de erro
+    //    $result = $db->exec($queryParams);
+       
+    // //    // Verifica se afetou alguma linha
+    //    if ($result === false) {
+    //        throw new \PDOException("Erro ao executar a query: " . implode(" ", $db->errorInfo()));
+    //    }
+       
+    //    return $result;
+    //     // return $db;
+    // }
+    public function insertInDBPrepared(string $query, array $params): int
+    {
+        $db = $this->getConnectDB();
+        $stmt = $db->prepare($query);
+
+        if (!$stmt->execute($params)) {
+            throw new \PDOException("Erro ao executar a query: " . implode(" ", $stmt->errorInfo()));
+        }
+
+        return $stmt->rowCount();
+    }
+
+    public function userExists($usuario)
+    {
+        $db = $this->getConnectDB();
+        
+        $query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
+        $stmt = $db->prepare($query);
+        
+        if (!$stmt) {
+            throw new \PDOException("Erro ao preparar query de verificação: " . implode(" ", $db->errorInfo()));
+        }
+        
+        $stmt->execute([$usuario]);
+        $count = $stmt->fetchColumn();
+        
+        return $count > 0;
+    }
+
 }

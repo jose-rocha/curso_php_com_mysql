@@ -61,13 +61,15 @@
 
         if(!$usuarioExiste) {
             $_SESSION['message_erro'] = true;
+            require './components/form_login.php';
 
             return;          
         } 
         
         $dataUser = $db->query($query)->fetch(PDO::FETCH_ASSOC);
-        // echo $usuarioExiste;
-        // var_dump($dataUser['senha']);
+        // echo $usuarioExiste ? 'Usuário existe' : 'Usuário não existe';
+        // echo($senha . '<br>' . $dataUser['senha'] . '<br><br>');
+        
         if($gerarHash->validaHash($senha, $dataUser['senha'])) {
                 echo  "Logado com sucesso!  {$dataUser['usuario']}";
 
