@@ -75,4 +75,11 @@ class ConnectDB
         return $count > 0;
     }
 
+    public function getDataDB(string $query)
+    {
+        $db = $this->getConnectDB();
+        
+        return $db->query($query);
+    }
+
 }

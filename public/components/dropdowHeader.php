@@ -7,8 +7,6 @@ $verifyAuth = new VerifyAuth;
 
 ?>
 
-
-
 <div class="btn-group dropstart">
     <button type="button" class="btn btn-primary text-white d-flex align-items-center gap-2" data-bs-toggle="dropdown"
         aria-expanded="false">

@@ -12,6 +12,12 @@
     ">
         <nav class="navbar navbar-expand-lg w-100">
             <div class="container-fluid">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
                 <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../assets/images/icons/logo_hibrid.png" style="width: 100%; height: 50px;" />
                 </a>
@@ -66,4 +72,6 @@
             </div>
         </nav>
     </header>
+
+    <?php require_once 'drawer.php' ?>
 </div>

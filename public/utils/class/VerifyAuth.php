@@ -29,11 +29,23 @@ class VerifyAuth
         switch ($typeUser) {
             case 'admin':
                 return '
-                <li class="list-group-item px-0 d-flex justify-content-center">
+                  <li class="list-group-item px-0 d-flex justify-content-center">
                     <a href="/user-new.php" class="btn btn-outline-primary btn-sm">
                         <i class="bi bi-person-gear me-1"></i>Novo Usuário
                     </a>
-                 </li>
+                  </li>
+
+                  <li class="list-group-item px-0 d-flex justify-content-center">               
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary p-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        style="font-size: 14px"
+                    >
+                        <i class="bi bi-list-check me-1"></i> Listar Usuários
+                    </button>
+                  </li>
                 ';
             case 'editor':
                 return null;
