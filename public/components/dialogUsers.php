@@ -5,8 +5,12 @@ use public\utils\class\ConnectDB;
 $connectDB = new ConnectDB;
 $query = "select id, usuario, nome, tipo from usuarios";
 
-$tableUsers = $connectDB->getDataDB($query)->fetchAll(PDO::FETCH_ASSOC);
-$qtdUsers =  $connectDB->getDataDB($query)->rowCount();
+try {
+    $tableUsers = $connectDB->getDataDB($query)->fetchAll(PDO::FETCH_ASSOC);
+    $qtdUsers =  $connectDB->getDataDB($query)->rowCount();
+} catch(\PDOException $error) {
+    echo $error->getMessage();
+}
 ?>
 
 <!-- Caso queira deixar o modal fixo pra debug, basta adicionar a classe swhow e o  style="display: block;" -->
