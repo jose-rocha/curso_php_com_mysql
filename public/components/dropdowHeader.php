@@ -1,5 +1,4 @@
 <?php
-
 use public\utils\class\VerifyAuth;
 
 session_start();
@@ -46,7 +45,7 @@ $verifyAuth = new VerifyAuth;
 
                 <ul class="list-group p-0">
                     <li class="list-group-item d-flex justify-content-center">
-                        <a href="#" class="btn btn-outline-primary btn-sm">
+                        <a href="/user-edit.php" class="btn btn-outline-primary btn-sm">
                             <i class="bi bi-person-gear me-1"></i>Editar Perfil
                         </a>
                     </li>

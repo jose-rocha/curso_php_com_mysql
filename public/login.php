@@ -51,7 +51,7 @@
         $senha = $_POST['senha'] ?? null;
 
         if(is_null($usuario) || is_null($senha)) {
-            require './components/form_login.php';
+            require './components/formLogin.php';
 
             return;
         }
@@ -62,7 +62,7 @@
 
             if(!$usuarioExiste) {
                 $_SESSION['message_erro'] = true;
-                require './components/form_login.php';
+                require './components/formLogin.php';
 
                 return;          
             } 
@@ -86,7 +86,7 @@
 
             $_SESSION['message_erro'] = true;
             
-            require './components/form_login.php';        
+            require './components/formLogin.php';        
             // echo $notificacoes->msg_erro('Usuário ou senha inválida!');            
             
 

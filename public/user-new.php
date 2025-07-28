@@ -8,7 +8,7 @@ use public\utils\class\VerifyAuth;
 session_start();
 
 $verifyAuth = new VerifyAuth;
-
+// Só quem é admin pode acessar essa rota
 if (!$verifyAuth->isAdmin()) {
     header('Location: /');
     exit();
