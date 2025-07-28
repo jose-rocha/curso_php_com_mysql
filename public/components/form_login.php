@@ -20,12 +20,21 @@
 
         <label for="floatingPassword">Senha</label>
     </div>
+
     <?php 
         session_start();
 
-        echo $_SESSION['message_erro']
-            ? $notificacoes->msg_erro('Usuário ou senha inválida!')
-            : null;
+        if ($_SESSION['message_erro']) {
+            // Se há detalhes específicos do erro do banco
+            if (isset($_SESSION['erro_detalhes'])) {
+                echo $notificacoes->msg_erro('Erro de conexão: ' . $_SESSION['erro_detalhes']);
+                // Limpar o erro específico após exibir
+                unset($_SESSION['erro_detalhes']);
+            } else {
+                // Erro padrão de login
+                echo $notificacoes->msg_erro('Usuário ou senha inválida!');
+            }
+        }
     ?>
 
     <button class="w-100 btn btn-lg bg-primary text-white" type="submit">Entrar</button>

@@ -55,41 +55,71 @@
 
             return;
         }
+        
+        try {
+            $query = "select usuario, nome, senha, tipo from usuarios where usuario = '$usuario' limit  1;";
+            $usuarioExiste = $db->query($query)->rowCount();
 
-        $query = "select usuario, nome, senha, tipo from usuarios where usuario = '$usuario' limit  1;";
-        $usuarioExiste = $db->query($query)->rowCount();
+            if(!$usuarioExiste) {
+                $_SESSION['message_erro'] = true;
+                require './components/form_login.php';
 
-        if(!$usuarioExiste) {
+                return;          
+            } 
+            
+            $dataUser = $db->query($query)->fetch(PDO::FETCH_ASSOC);
+            // echo $usuarioExiste ? 'Usuário existe' : 'Usuário não existe';
+            // echo($senha . '<br>' . $dataUser['senha'] . '<br><br>');
+            
+            if($gerarHash->validaHash($senha, $dataUser['senha'])) {
+                    echo  "Logado com sucesso!  {$dataUser['usuario']}";
+
+                $_SESSION['user'] = $dataUser['usuario'];
+                $_SESSION['nome'] = $dataUser['nome'];
+                $_SESSION['tipo'] =  $dataUser['tipo'];
+                $_SESSION['message_erro'] = false;
+
+                header("Location: /");
+
+                return;
+            }
+
             $_SESSION['message_erro'] = true;
-            require './components/form_login.php';
+            
+            require './components/form_login.php';        
+            // echo $notificacoes->msg_erro('Usuário ou senha inválida!');            
+            
 
-            return;          
-        } 
-        
-        $dataUser = $db->query($query)->fetch(PDO::FETCH_ASSOC);
-        // echo $usuarioExiste ? 'Usuário existe' : 'Usuário não existe';
-        // echo($senha . '<br>' . $dataUser['senha'] . '<br><br>');
-        
-        if($gerarHash->validaHash($senha, $dataUser['senha'])) {
-                echo  "Logado com sucesso!  {$dataUser['usuario']}";
-
-            $_SESSION['user'] = $dataUser['usuario'];
-            $_SESSION['nome'] = $dataUser['nome'];
-            $_SESSION['tipo'] =  $dataUser['tipo'];
-            $_SESSION['message_erro'] = false;
-
-            header("Location: /");
-
-            return;
+            die();
+        } catch(\PDOException $error) {
+            // Debug: Verificar se as variáveis existem
+            $debugInfo = [
+                'notificacoes_exists' => isset($notificacoes),
+                'error_message' => $error->getMessage(),
+                'method_exists' => method_exists($notificacoes ?? null, 'msg_erro')
+            ];
+            
+            // Tentar usar a classe Notificacoes com tratamento de erro
+            try {
+                if (isset($notificacoes) && method_exists($notificacoes, 'msg_erro')) {
+                    $mensagemFormatada = $notificacoes->msg_erro("Erro de banco de dados: " . $error->getMessage());
+                    echo $mensagemFormatada;
+                } else {
+                    throw new Exception("Classe Notificacoes não disponível");
+                }
+            } catch (Exception $notifError) {
+                // Fallback: HTML direto sem usar a classe
+                echo "<div class='alert alert-danger rounded' role='alert'>";
+                echo "<i class='bi bi-x-circle-fill'></i> Erro de banco de dados: " . htmlspecialchars($error->getMessage());
+                echo "</div>";
+                
+                // Debug opcional (comentar em produção)
+                echo "<!-- Debug: " . json_encode($debugInfo) . " -->";
+                echo "<!-- Erro da classe: " . $notifError->getMessage() . " -->";
+            }
+            
+            die();
         }
-
-        $_SESSION['message_erro'] = true;
-        
-        require './components/form_login.php';        
-        // echo $notificacoes->msg_erro('Usuário ou senha inválida!');            
-        
-
-        die();
     ?>
 </body>
 
