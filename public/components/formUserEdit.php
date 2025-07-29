@@ -1,4 +1,30 @@
 <?php
+
+use public\utils\class\ConnectDB;
+use public\utils\class\Notificacoes;
+
+
+
+$connectDB = new ConnectDB;
+$notificao = new Notificacoes;
+
+$query = "select id, usuario, nome,  senha, tipo from usuarios where usuario = '{$_SESSION['user']}'";
+
+try {
+    $tableUser = $connectDB->getDataDB($query)->fetch(PDO::FETCH_ASSOC);
+    $usuario = $tableUser['usuario'];
+    $nome = $tableUser['nome'];
+    $ripo = $tableUser['tipo'];
+    $senha = $tableUser['senha'];
+    
+    // var_dump($tableUser);
+
+    // var_dump($_SESSION);
+} catch(\PDOException $error) {
+   echo $notificao->msg_erro($error->getMessage());
+
+   exit();
+}
 ?>
 
 <form form acction="/" method="POST" class="d-flex row col-12 col-lg-auto mb-3 mb-lg-0" role="search"
@@ -11,12 +37,13 @@
 
     <div class="form-floating">
         <input autofocus type="text" class="form-control" name="usuario" size="10" maxlength="10" placeholder="usuário"
-            readonly>
+            value="<?=$usuario?>" readonly>
         <label for="floatingInput">Usuário</label>
     </div>
 
     <div class="form-floating my-2">
-        <input type="text" class="form-control" name="nome" size="30" maxlength="30" placeholder="usuário">
+        <input type="text" class="form-control" name="nome" size="30" maxlength="30" placeholder="usuário"
+            value="<?=$nome?>">
         <label for="floatingInput">Nome</label>
     </div>
 
@@ -25,8 +52,9 @@
 
         <select class="form-select form-select-lg" name="tipo" aria-label="Large select example" role="button" disabled>
             <option disabled>Selecione o Tipo</option>
-            <option value="admin">Administrador do Sistema</option>
-            <option value="editor" selected>Editor Autorizado</option>
+            <option value="<?= $tableUser['tipo'] ?>">
+                <?= $tipo === 'admin' ? 'Administrador do Sistema' : 'Editor Autorizado' ?>
+            </option>
         </select>
     </div>
 
@@ -49,7 +77,7 @@
     </div>
 
     <div class="form-floating mb-2">
-        <button class="w-100 btn btn-lg bg-primary text-white" type="submit">Cadastrar Usuário</button>
+        <button class="w-100 btn btn-lg bg-primary text-white" type="submit">Atualizar Usuário</button>
     </div>
 
 
