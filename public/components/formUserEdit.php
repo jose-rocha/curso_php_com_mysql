@@ -20,7 +20,7 @@ try {
     $tableUser  = $stmt->fetch(PDO::FETCH_ASSOC);
     
     $usuario = $tableUser['usuario'];
-    $nome =  $_POST['nome'] ?? $tableUser['nome'];
+    $nome =  ucwords($_POST['nome']) ?? $tableUser['nome'];
     $tipo = $tableUser['tipo'];
     $senha = $tableUser['senha'];
     
@@ -112,7 +112,7 @@ try {
                     
                     try {
                         $stmt = $connectDB->updateData($queryUpdate, [
-                            ':nome' => $_POST['nome'], 
+                            ':nome' => ucwords($_POST['nome']), 
                             ':tipo' => $tipo,
                             ':senha' => $senha,
                             ':usuario' => $usuario
