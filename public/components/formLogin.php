@@ -34,6 +34,8 @@
                 // Erro padrão de login
                 echo $notificacoes->msg_erro('Usuário ou senha inválida!');
             }
+        } elseif($_SESSION['message_usuario_inativo']) {
+             echo $notificacoes->msg_aviso('Atenção entre em contato com a diretoria!');
         }
     ?>
 

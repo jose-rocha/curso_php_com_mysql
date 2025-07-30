@@ -3,7 +3,7 @@
 use public\utils\class\ConnectDB;
 
 $connectDB = new ConnectDB;
-$query = "select id, usuario, nome, tipo from usuarios";
+$query = "select id, usuario, nome, tipo, status from usuarios";
 
 try {
     $stmt = $connectDB->getDataDB($query);
@@ -37,21 +37,25 @@ try {
 
                         <thead style="position: sticky; top: 0; z-index: 1;">
                             <tr>
-                                <th scope="col">id</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Usuário</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Tipo</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                                 foreach($tableUsers as $user) {
+                                    $status = $user['status'] === 1 ? 'Ativo' : 'Inativo';
+                                    $colorStatus = $user['status'] === 1 ? 'green' : 'red';
                                     echo "
                                         <tr>
                                             <td>{$user['id']}</td>
                                             <td>{$user['usuario']}</td>
                                             <td>{$user['nome']}</td>
                                             <td>{$user['tipo']}</td>
+                                            <td style='color: {$colorStatus}; font-weight: bold;' >{$status}</td>
                                         </tr>
                                     ";
                                 }

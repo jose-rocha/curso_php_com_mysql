@@ -26,6 +26,7 @@
         $_SESSION['nome'] = null;
         $_SESSION['tipo'] = null;
         $_SESSION['message_erro'] = false;
+        $_SESSION['message_usuario_inativo'] = false;
     }
 
     $verifyAuth = new VerifyAuth;
@@ -57,7 +58,7 @@
         }
         
         try {
-            $query = "select usuario, nome, senha, tipo from usuarios where usuario = '$usuario' limit  1;";
+            $query = "select usuario, nome, senha, tipo, status from usuarios where usuario = '$usuario' limit  1;";
             $usuarioExiste = $db->query($query)->rowCount();
 
             if(!$usuarioExiste) {
@@ -70,14 +71,24 @@
             $dataUser = $db->query($query)->fetch(PDO::FETCH_ASSOC);
             // echo $usuarioExiste ? 'Usuário existe' : 'Usuário não existe';
             // echo($senha . '<br>' . $dataUser['senha'] . '<br><br>');
+
             
             if($gerarHash->validaHash($senha, $dataUser['senha'])) {
-                    echo  "Logado com sucesso!  {$dataUser['usuario']}";
+                if($dataUser['status'] === 0) {
+                    $_SESSION['message_usuario_inativo'] = true;
+                    
+                    require './components/formLogin.php';
+                    return;
+                }
+
+                echo  "Logado com sucesso!  {$dataUser['usuario']}";
 
                 $_SESSION['user'] = $dataUser['usuario'];
                 $_SESSION['nome'] = $dataUser['nome'];
                 $_SESSION['tipo'] =  $dataUser['tipo'];
                 $_SESSION['message_erro'] = false;
+                $_SESSION['message_usuario_inativo'] = false;
+                $_SESSION['message_usuario_inativo'] = false;
 
                 header("Location: /");
 
