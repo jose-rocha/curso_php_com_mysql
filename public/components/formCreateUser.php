@@ -63,7 +63,7 @@ $confirmeSenha = $_POST["confirme_senha"] ?? null;
 
     <div class="form-floating my-2">
         <?php 
-             if($dataForm['senha'] !== $dataForm['confirme_senha']) {
+            if($dataForm['senha'] !== $dataForm['confirme_senha']) {
                 echo $notificacoes->msg_erro('A senhas não conferem!');
             } elseif (
                 $_SERVER['REQUEST_METHOD'] === 'POST' && (

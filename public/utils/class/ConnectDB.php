@@ -79,7 +79,19 @@ class ConnectDB
     {
         $db = $this->getConnectDB();
         
-        return $db->query($query);
+        return $db->prepare($query);
+    }
+
+    public function updateData($query, $params)
+    {
+        $db = $this->getConnectDB();
+        $stmt = $db->prepare($query);
+
+        if (!$stmt->execute($params)) {
+            throw new \PDOException("Erro ao executar a query: " . implode(" ", $stmt->errorInfo()));
+        }
+
+        return $stmt;
     }
 
 }

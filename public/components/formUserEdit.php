@@ -1,27 +1,34 @@
 <?php
 
 use public\utils\class\ConnectDB;
+use public\utils\class\GerarHash;
 use public\utils\class\Notificacoes;
 
 
-
 $connectDB = new ConnectDB;
-$notificao = new Notificacoes;
+$notificacao = new Notificacoes;
+$gerarHash = new GerarHash;
+$dataForm = $_POST;
 
-$query = "select id, usuario, nome,  senha, tipo from usuarios where usuario = '{$_SESSION['user']}'";
+$query = "select id, usuario, nome, senha, tipo from usuarios where usuario = :usuario";
+
 
 try {
-    $tableUser = $connectDB->getDataDB($query)->fetch(PDO::FETCH_ASSOC);
+    // $tableUser = $connectDB->getDataDB($query)->fetch(PDO::FETCH_ASSOC);
+    $stmt = $connectDB->getDataDB($query);
+    $stmt->execute([':usuario' => $_SESSION['user']]);
+    $tableUser  = $stmt->fetch(PDO::FETCH_ASSOC);
+    
     $usuario = $tableUser['usuario'];
-    $nome = $tableUser['nome'];
-    $ripo = $tableUser['tipo'];
+    $nome =  $_POST['nome'] ?? $tableUser['nome'];
+    $tipo = $tableUser['tipo'];
     $senha = $tableUser['senha'];
     
     // var_dump($tableUser);
 
     // var_dump($_SESSION);
 } catch(\PDOException $error) {
-   echo $notificao->msg_erro($error->getMessage());
+   echo $notificacao->msg_erro($error->getMessage());
 
    exit();
 }
@@ -73,7 +80,53 @@ try {
     </div>
 
     <div class="form-floating my-2">
-        código php aqui
+        <?php
+            if($dataForm['senha'] !== $dataForm['confirme_senha']) {
+                echo $notificacao->msg_erro('A senhas não conferem!');
+            } elseif (
+                $_SERVER['REQUEST_METHOD'] === 'POST' && (
+                    empty($usuario) ||
+                    empty($nome) ||
+                    empty($tipo)
+                    // ||
+                    // empty($senha) ||
+                    // empty($confirmeSenha)
+                )
+            ) {    
+                echo $notificacao->msg_erro('Todos os campos devem ser preenchidos!');
+            } elseif($connectDB->userExists($usuario) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $senhaPost = $_POST['senha'] ?? null;
+                    $senhaPostConfirmeSenha = $_POST['confirme_senha'] ?? null;                
+
+                    $queryUpdate = "update usuarios set nome = :nome, tipo = :tipo, senha = :senha where usuario = :usuario";
+
+                    if(empty($senhaPost) || is_null($senhaPostConfirmeSenha)) {
+                      echo  $notificacao->msg_aviso('Dados alterados com sucesso e a senha antiga foi mantida');
+                    } elseif($senhaPost === $senhaPostConfirmeSenha) {
+                        $senha = $gerarHash->gerarHashDefault($senhaPost);
+
+                        $queryUpdate = "update usuarios set nome = :nome, tipo = :tipo, senha = :senha where usuario = :usuario";
+
+                        echo $notificacao->msg_sucesso('Usuário atualizado com suceso!');
+                    }
+                    
+                    try {
+                        $stmt = $connectDB->updateData($queryUpdate, [
+                            ':nome' => $_POST['nome'], 
+                            ':tipo' => $tipo,
+                            ':senha' => $senha,
+                            ':usuario' => $usuario
+                        ]);
+    
+                        $resultUpdate = $stmt->rowCount();
+                    } catch(\PDOException $erro) {
+                        $notificacao->msg_erro($erro->getMessage());
+                    }
+                    
+                   
+
+            }
+        ?>
     </div>
 
     <div class="form-floating mb-2">

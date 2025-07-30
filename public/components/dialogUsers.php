@@ -6,8 +6,13 @@ $connectDB = new ConnectDB;
 $query = "select id, usuario, nome, tipo from usuarios";
 
 try {
-    $tableUsers = $connectDB->getDataDB($query)->fetchAll(PDO::FETCH_ASSOC);
-    $qtdUsers =  $connectDB->getDataDB($query)->rowCount();
+    $stmt = $connectDB->getDataDB($query);
+    $stmt->execute();
+    $tableUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // var_dump($tableUsers);
+    
+    $qtdUsers =  $stmt->rowCount();
 } catch(\PDOException $error) {
     echo $error->getMessage();
 }
