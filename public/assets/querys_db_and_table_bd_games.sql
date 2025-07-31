@@ -146,3 +146,24 @@ join produtoras p on j.produtora = p.cod
 group by cod_produtora, p.produtora
 order by cod_produtora desc;
 
+
+-- Adicionar olunas
+ALTER TABLE usuarios
+ADD COLUMN status INTEGER DEFAULT 1,
+ADD COLUMN criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN atualizado_em TIMESTAMP;
+
+-- Criar função para trigger
+CREATE OR REPLACE FUNCTION update_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.atualizado_em = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Criar trigger
+CREATE TRIGGER usuarios_update_timestamp
+    BEFORE UPDATE ON usuarios
+    FOR EACH ROW
+    EXECUTE FUNCTION update_timestamp();
