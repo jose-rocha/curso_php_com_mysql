@@ -108,6 +108,7 @@ try {
                     }
                     
                     try {
+                        $_SESSION['nome'] = $nome;
                         $stmt = $connectDB->updateData($queryUpdate, [
                             ':nome' => mb_convert_case($_POST['nome'], MB_CASE_TITLE, 'UTF-8'), 
                             ':tipo' => $tipo,
@@ -139,3 +140,18 @@ try {
         </a>
     </div>
 </form>
+
+<script defer>
+// const originalString = "  This  string has   many  gaps.  ";
+// const cleanedString = originalString.replace(/\s+/g, ''); 
+// console.log(cleanedString); // Output: Thisstringhasmanygaps.
+
+const input = document.querySelector('[name="usuario"]');
+
+input.addEventListener('focusout', ({
+    target
+}) => {
+    // console.log(target.value.replace(/\s+/g, ''));
+    input.value = target.value.replace(/\s+/g, '');
+})
+</script>

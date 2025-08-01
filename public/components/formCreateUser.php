@@ -10,8 +10,8 @@ $dataForm = $_POST;
 $gerarHash = new GerarHash;
 $connectDB = new ConnectDB;
 
-$usuario = $_POST["usuario"] ?? null;
-$nome = $_POST["nome"] ?? null;
+$usuario = $_POST["usuario"] ?? null; 
+$nome = mb_convert_case($_POST['nome'] ?? null, MB_CASE_TITLE, 'UTF-8');
 $tipo = $_POST["tipo"] ?? null;
 $senha = $_POST["senha"] ?? null;
 $confirmeSenha = $_POST["confirme_senha"] ?? null;
