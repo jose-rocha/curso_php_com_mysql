@@ -146,6 +146,21 @@ $confirmeSenha = $_POST["confirme_senha"] ?? null;
     </div>
 </form>
 
+<script defer>
+// const originalString = "  This  string has   many  gaps.  ";
+// const cleanedString = originalString.replace(/\s+/g, ''); 
+// console.log(cleanedString); // Output: Thisstringhasmanygaps.
+
+const input = document.querySelector('[name="usuario"]');
+
+input.addEventListener('focusout', ({
+    target
+}) => {
+    // console.log(target.value.replace(/\s+/g, ''));
+    input.value = target.value.replace(/\s+/g, '');
+})
+</script>
+
 <!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = {

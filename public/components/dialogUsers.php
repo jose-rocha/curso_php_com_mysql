@@ -5,7 +5,7 @@ use public\utils\class\FormatDateToBrazil;
 
 $formatDateToBrazil = new FormatDateToBrazil;
 $connectDB = new ConnectDB;
-$query = "select id, usuario, nome, tipo, status, criado_em, atualizado_em from usuarios";
+$query = "select id, usuario, nome, tipo, status, criado_em, atualizado_em from usuarios order by nome";
 
 try {
     $stmt = $connectDB->getDataDB($query);
@@ -20,8 +20,9 @@ try {
 }
 ?>
 
-<!-- Caso queira deixar o modal fixo pra debug, basta adicionar a classe swhow e o  style="display: block;" -->
+<!-- Caso queira deixar o modal fixo pra debug, basta adicionar a classe swhow e o style="display: block;" -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- style="display: block;" -->
     <div class="modal-dialog modal-lg">
         <div class=" modal-content">
             <div class="modal-header">

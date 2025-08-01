@@ -20,13 +20,10 @@ try {
     $tableUser  = $stmt->fetch(PDO::FETCH_ASSOC);
     
     $usuario = $tableUser['usuario'];
-    $nome =  ucwords($_POST['nome']) ?? $tableUser['nome'];
+    $nome = mb_convert_case($_POST['nome'] ?? $tableUser['nome'], MB_CASE_TITLE, 'UTF-8');
     $tipo = $tableUser['tipo'];
     $senha = $tableUser['senha'];
     
-    // var_dump($tableUser);
-
-    // var_dump($_SESSION);
 } catch(\PDOException $error) {
    echo $notificacao->msg_erro($error->getMessage());
 
@@ -112,7 +109,7 @@ try {
                     
                     try {
                         $stmt = $connectDB->updateData($queryUpdate, [
-                            ':nome' => ucwords($_POST['nome']), 
+                            ':nome' => mb_convert_case($_POST['nome'], MB_CASE_TITLE, 'UTF-8'), 
                             ':tipo' => $tipo,
                             ':senha' => $senha,
                             ':usuario' => $usuario
