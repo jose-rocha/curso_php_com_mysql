@@ -88,7 +88,7 @@
              </form>
 
              <table class="listagem">
-                 <?php 
+                 <!-- <?php 
                     echo "Quantidade de jogos encontrados: " . count($resultado);
     
                     foreach($resultado as $key => $value) {
@@ -111,7 +111,27 @@
                             </tr>
                         ";
                  }
+                 ?> -->
+
+                 <?= "Quantidade de jogos encontrados: " . count($resultado);?>
+                 <?php foreach($resultado as $key => $value): ?>
+                 <?php
+                    $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}", 'capa');
+                    $nota = number_format($value['nota'], 1);
                  ?>
+                 <tr>
+                     <td><?=$capa?></td>
+                     <td>
+                         <a href="/detalhes.php?cod=<?=$value['cod']?>"><?=$value['nome']?></a> <br>
+                         <i class='bi bi-joystick'></i> <?=$value['ge_genero']?> <br>
+                         <i class='bi bi-building'></i> <?=$value['pr_produtora']?>
+                         <span style='float: inline-end; margin-right: 5px;'>
+                             <i class='bi bi-star-fill'></i> Nota: <?=$nota?>/10
+                         </span>
+                     </td>
+                     <?= $verifyAuth->getActionIcons($_SESSION['tipo'], $value['cod']) ?>
+                 </tr>
+                 <?php endforeach; ?>
              </table>
          </div>
      </main>
