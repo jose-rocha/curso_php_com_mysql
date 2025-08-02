@@ -4,6 +4,7 @@
     require './utils/class/ShowThumb.php';
     require_once './components/headLinks.php';
 
+    use public\utils\class\GetPagination;
     use public\utils\class\Notificacoes;
     use public\utils\class\VerifyAuth;
 
@@ -27,6 +28,28 @@
     // } else {
     //     echo "Usuário não logado";
     // }
+    $getPagination = new GetPagination;
+
+    $busca = $_GET['busca'];
+    $ordenacao = $_GET['ordenacao'] ?? 'nome';
+
+    $pagina = $_GET['pagina'] ?? 1;
+    // Validar página para garantir que seja um número positivo
+    $pagina = max(1, intval($pagina)); // Garante que seja no mínimo 1
+    
+    $porPagina = 4;
+    $inicio = ($pagina - 1) * $porPagina;
+
+    $stmt = $getPagination->paginationDataTable($busca, $ordenacao, $inicio, $porPagina)['resultado'];
+    $stmt->execute();
+    $tableGames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // print_r($tableGames);
+    // print("Quantidade de jogos encontrados: " . count($tableGames));
+    $count = $getPagination->paginationDataTable($busca, $ordenacao, $inicio, $porPagina)['count'];
+    $qtdPage = ceil($count / $porPagina);
+
+    $linkActive = fn(string $param) => $ordenacao === $param ? 'text-danger fw-bold': null;
 ?>
 
  <!DOCTYPE html>
@@ -42,8 +65,9 @@
 
              <form acction="/" method="GET" class="d-flex row col-12 col-lg-auto mb-3 mb-lg-0" role="search">
                  <div class="d-flex align-items-center col-12 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+
                      <span> Ordenar por:
-                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover <?= $linkActive('nome');?>"
                              href='<?php echo !empty($busca) ? "/?ordenacao=nome&busca={$busca}" : "/?ordenacao=nome" ?>'>
                              <!-- Adiconado o &busca=<?php echo  $busca;?> 
                                   para quando pesquisar por algo na busca e de pois clicar em um dos links
@@ -51,23 +75,24 @@
                             -->
                              Nome
                          </a> |
-                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover <?= $linkActive('produtora');?>"
                              href='<?php echo !empty($busca) ? "/?ordenacao=produtora&busca={$busca}" : "/?ordenacao=produtora" ?>
                          '>
                              Produtora
                          </a> | <a
-                             class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                             class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover  <?= $linkActive('nota-alta');?>"
                              href='<?php echo !empty($busca) ? "/?ordenacao=nota-alta&busca=$busca" : "/?ordenacao=nota-alta" ?>'>
                              Nota Alta
                          </a> |
-                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover <?= $linkActive('nota-baixa');?>"
                              href='<?php echo !empty($busca) ? "/?ordenacao=nota-baixa&busca=$busca" : "/?ordenacao=nota-baixa"?>'>
                              Nota Baixa
-                         </a> |
+                         </a>
+                         <!-- |
                          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                              href="/">
                              Mostrar Todos
-                         </a>
+                         </a> -->
                      </span>
                  </div>
 
@@ -89,9 +114,9 @@
 
              <table class="listagem">
                  <!-- <?php 
-                    echo "Quantidade de jogos encontrados: " . count($resultado);
+                    echo "Quantidade de jogos encontrados: " . count($tableGames);
     
-                    foreach($resultado as $key => $value) {
+                    foreach($tableGames as $key => $value) {
                         // echo $value['capa'];
                         $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}", 'capa');
                         $nota = number_format($value['nota'], 1);
@@ -113,8 +138,8 @@
                  }
                  ?> -->
 
-                 <?= "Quantidade de jogos encontrados: " . count($resultado);?>
-                 <?php foreach($resultado as $key => $value): ?>
+                 <?= "Quantidade de jogos encontrados: " . count($tableGames);?>
+                 <?php foreach($tableGames as $key => $value): ?>
                  <?php
                     $capa = $thumb->renderImg("assets/images/capas_jogos/{$value['capa']}", 'capa');
                     $nota = number_format($value['nota'], 1);
@@ -133,6 +158,31 @@
                  </tr>
                  <?php endforeach; ?>
              </table>
+
+             <div class="pt-2 d-flex justify-content-end">
+                 <form action="/" method="GET"></form>
+                 <nav aria-label="Page navigation example">
+                     <ul class="pagination">
+                         <li class="page-item">
+                             <a class="page-link <?= $pagina === 1 ? 'disabled' : null;?>"
+                                 href="/?pagina=<?=$pagina === 1 ? 1 : $pagina - 1?>">
+                                 Anterior
+                             </a>
+                         </li>
+                         <li class="page-item"><a class="page-link"
+                                 href="/"><?=$pagina . "/" .  $qtdPage . " de " . $count;?></a>
+                         </li>
+                         <li class="page-item">
+                             <a class="page-link <?= intval($pagina) === intval($qtdPage) ? 'disabled' : null;?>"
+                                 href="/?pagina=<?=intval($pagina) === intval($qtdPage) ? $qtdPage : $pagina + 1?>">
+                                 Próxima
+                             </a>
+                         </li>
+
+                     </ul>
+                 </nav>
+
+             </div>
          </div>
      </main>
 
